@@ -42,7 +42,7 @@ export function Navbar() {
           amentor<span className="text-secundaria">IA</span>.
         </h2>
         <p className="text-caption text-neutras-400 font-medium uppercase tracking-wider mt-1">
-          Seu tutor interativo • ENEM 
+          Seu tutor interativo para o ENEM 
         </p>
       </div>
 

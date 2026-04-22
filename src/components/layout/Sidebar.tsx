@@ -136,7 +136,7 @@ export const Sidebar = ({ onUploadClick, onManageFilesClick }: SidebarProps) => 
               <span className="group-hover:rotate-90 transition-transform flex items-center justify-center">
                 <Plus size={20} weight="bold" />
               </span>
-              Nova Dúvida
+              Nova dúvida
             </Button>
 
             <div className="flex-1 flex flex-col gap-4 overflow-y-auto pr-2">
