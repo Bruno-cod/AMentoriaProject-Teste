@@ -50,13 +50,6 @@ export default function ChatPage() {
     }
   }, [messages, isAiThinking]);
 
-  useEffect(() => {
-    return () => {
-      if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
-      }
-    };
-  }, [previewUrl]);
 
   useEffect(() => {
     if ((!initialMessage && !initialImage) || initialized.current) return;
@@ -98,7 +91,6 @@ export default function ChatPage() {
   const handleSend = () => {
     if (!inputValue.trim() && !previewUrl) return;
     sendMessage(inputValue, previewUrl);
-    if (previewUrl) URL.revokeObjectURL(previewUrl);
     setInputValue("");
     setPreviewUrl(null);
     setActiveMenu("none");
