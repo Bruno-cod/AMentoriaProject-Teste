@@ -4,8 +4,13 @@ import { Button } from "../ui/Button";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useEffect, useState } from "react";
+import { List } from "@phosphor-icons/react";
 
-export function Navbar() {
+interface NavbarProps {
+  onOpenMenu?: () => void; 
+}
+
+export function Navbar({onOpenMenu}:NavbarProps) {
   const router = useRouter();
   
   const { isLogged} = useAuthStore();
@@ -34,16 +39,28 @@ export function Navbar() {
           : 'fixed top-0 h-[120px] px-4 md:px-[75px] bg-neutras-900'
         }`}
     >
-      <div className="flex flex-col">
-        <h2 
-          onClick={handleHome} 
-          className={`${isLogged ? 'text-h4' : 'text-h2'} text-white font-bold leading-none cursor-pointer hover:opacity-80 transition-opacity`}
-        >
-          amentor<span className="text-secundaria">IA</span>.
-        </h2>
-        <p className="text-caption text-neutras-400 font-medium uppercase tracking-wider mt-1">
-          Seu tutor interativo para o ENEM 
-        </p>
+      <div className="flex items-center gap-4">
+        {isLogged && (
+          <Button
+            variant='icon' 
+            onClick={onOpenMenu} 
+            className="md:hidden text-neutras-50 hover:text-primaria transition-colors"
+          >
+            <List size={28} weight="bold" />
+          </Button>
+        )}
+        
+        <div className="flex flex-col">
+          <h2 
+            onClick={handleHome} 
+            className={`${isLogged ? 'text-h4' : 'text-h2'} text-white font-bold leading-none cursor-pointer hover:opacity-80 transition-opacity`}
+          >
+            amentor<span className="text-secundaria">IA</span>.
+          </h2>
+          <p className="hidden sm:block text-caption text-neutras-400 font-medium uppercase tracking-wider mt-1">
+            Seu tutor interativo para o ENEM 
+          </p>
+        </div>
       </div>
 
       {!isLogged && (

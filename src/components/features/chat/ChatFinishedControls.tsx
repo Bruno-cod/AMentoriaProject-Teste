@@ -23,4 +23,4 @@ export function ChatFinishedControls({ onNewChat }: ChatFinishedControlsProps) {
       </button>
     </div>
   );
-}
+} 
