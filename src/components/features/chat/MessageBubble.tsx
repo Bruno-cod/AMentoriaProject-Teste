@@ -39,7 +39,7 @@ export function MessageBubble({
     <div
       className={`flex w-full mb-6 animate-in fade-in slide-in-from-bottom-3 duration-300 ${isAI ? "justify-start" : "justify-end"}`}
     >
-      <div className="flex flex-col max-w-[75%] gap-2">
+      <div className="flex flex-col max-w-[85%] sm:max-w-[75%] gap-2 min-w-0">
         <div
           className={`px-5 py-3 rounded-3xl shadow-md ${
             isAI
@@ -52,7 +52,7 @@ export function MessageBubble({
               <img
                 src={image}
                 alt="Anexo"
-                className="max-w-full h-auto object-contain max-h-[300px] w-full"
+                className="max-w-full h-auto object-contain max-h-[200px] sm:max-h-[300px] w-full"
               />
             </div>
           )}
@@ -72,7 +72,7 @@ export function MessageBubble({
               <button
                 key={`${suggestion.value}-${index}`}
                 onClick={() => onActionClick?.(suggestion.value)}
-                className="px-4 py-1.5 bg-neutras-800 border border-primaria/30 text-neutras-100 text-[12px] font-bold rounded-full hover:bg-primaria/20 hover:border-primaria transition-all cursor-pointer shadow-sm active:scale-95 whitespace-nowrap"
+                 className="px-4 py-2 min-h-[44px] max-w-full bg-neutras-800 border border-primaria/30 text-neutras-100 text-[12px] font-bold rounded-full hover:bg-primaria/20 hover:border-primaria transition-all cursor-pointer shadow-sm active:scale-95 text-left"
               >
                 {suggestion.label}
               </button>

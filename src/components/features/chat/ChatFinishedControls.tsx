@@ -16,7 +16,7 @@ export function ChatFinishedControls({ onNewChat }: ChatFinishedControlsProps) {
       
       <button
         onClick={onNewChat}
-        className="w-full py-3 bg-primaria text-neutras-50 font-semibold text-body-small rounded-xl hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primaria/10"
+        className="w-full py-3 min-h-[44px] bg-primaria text-neutras-50 font-semibold text-body-small rounded-xl hover:opacity-90 transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primaria/10"
       >
         <span aria-hidden="true">✨</span>
         Iniciar Nova Dúvida

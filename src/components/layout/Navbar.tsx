@@ -29,7 +29,7 @@ export function Navbar({ onOpenMenu }: NavbarProps) {
       <header className="h-[72px] w-full shrink-0 flex items-center justify-between px-4 md:px-8 bg-neutras-900 border-b border-primaria/10 z-10">
         <div className="flex items-center gap-3">
           <Button
-            variant="icon"
+            variant="ghost"
             onClick={onOpenMenu}
             className="md:hidden text-neutras-50 hover:text-primaria transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
           >
