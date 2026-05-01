@@ -59,6 +59,18 @@ export const Sidebar = ({  onClose, onUploadClick, onManageFilesClick }: Sidebar
       loadRecentFiles();
     }
 
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsExpanded(false); 
+      } else {
+        setIsExpanded(true);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
     window.addEventListener("historyUpdated", loadHistory);
     return () => window.removeEventListener("historyUpdated", loadHistory);
   }, [user?.role, user?.email]);
@@ -79,7 +91,11 @@ export const Sidebar = ({  onClose, onUploadClick, onManageFilesClick }: Sidebar
 
   const toggleSidebar = () => {
     if (window.innerWidth < 768) {
-      onClose?.(); 
+      if (onClose) {
+        onClose();
+      } else {
+        setIsExpanded(!isExpanded); 
+      }
     } else {
       setIsExpanded(!isExpanded); 
     }
