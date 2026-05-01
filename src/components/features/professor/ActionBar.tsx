@@ -11,6 +11,7 @@ interface ActionBarProps {
   filterValue?: boolean;
   onFilterChange?: (value: boolean) => void;
   filterLabel?: string;
+  isMobileLayout?: boolean;
 }
 
 export function ActionBar({ 
@@ -19,16 +20,21 @@ export function ActionBar({
   hasFilter = false,
   filterValue = false,
   onFilterChange,
-  filterLabel = "Apenas não lidos" }: ActionBarProps) {
+  filterLabel = "Apenas não lidos",
+isMobileLayout = false
+ }: ActionBarProps) {
 
-  return (
-    <div className="flex w-full items-center gap-4 md:w-auto">
+ return (
+    
+    <div className={cn("flex w-full gap-4", isMobileLayout ? "flex-col items-start" : "items-center md:w-auto")}>
       
-      <SearchBar 
-        value={searchTerm} 
-        onChange={onSearchChange} 
-        placeholder="Pesquisar..." 
-      />
+      <div className="w-full">
+        <SearchBar 
+          value={searchTerm} 
+          onChange={onSearchChange} 
+          placeholder="Pesquisar..." 
+        />
+      </div>
 
       {hasFilter && onFilterChange && (
         <label className="flex items-center gap-3 cursor-pointer group whitespace-nowrap px-2">

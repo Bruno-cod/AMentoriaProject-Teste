@@ -16,9 +16,11 @@ interface SidebarProps {
   onClose?: () => void;
   onUploadClick?: () => void;
   onManageFilesClick?: () => void;
+  mobileActionBarSlot?: React.ReactNode;
 }
 
-export const Sidebar = ({  onClose, onUploadClick, onManageFilesClick }: SidebarProps) => {
+
+export const Sidebar = ({  onClose, onUploadClick, onManageFilesClick, mobileActionBarSlot }: SidebarProps) => {
   const [history, setHistory] = useState<ChatHistoryData[]>([]);
   const [recentFiles, setRecentFiles] = useState<KnowledgeFile[]>([]);
   const [isMounted, setIsMounted] = useState(false);
@@ -139,6 +141,12 @@ export const Sidebar = ({  onClose, onUploadClick, onManageFilesClick }: Sidebar
                 <UploadSimple size={20} weight="bold" className="shrink-0" />
                 {isExpanded && <span>Novo upload</span>}
               </Button>
+
+              {mobileActionBarSlot && (
+              <div className="block md:hidden w-full mb-6 border-b border-neutras-800 pb-6">
+                {isExpanded && mobileActionBarSlot}
+              </div>
+            )}
             </div>
 
             <div className="flex-1 flex flex-col gap-4 overflow-y-auto pr-2 w-full">

@@ -28,9 +28,23 @@ export default function ProfessorDashboard() {
     setSearchTerm(""); 
   };
 
+  const myActionBar = (isMobile: boolean) => (
+    <ActionBar
+      searchTerm={searchTerm}
+      onSearchChange={setSearchTerm}
+      hasFilter={activeTab === "alunos"}
+      filterValue={activeTab === "alunos" ? mostrarNaoLidos : undefined}
+      onFilterChange={activeTab === "alunos" ? setMostrarNaoLidos : undefined}
+      filterLabel={activeTab === "alunos" ? "Apenas não lidos" : undefined}
+      isMobileLayout={isMobile}
+    />
+  );
+
   return (
     <div className="flex w-full h-screen bg-neutras-900 font-poppins overflow-hidden">
-      <Sidebar onUploadClick={() => setIsModalOpen(true)} />
+      <Sidebar 
+        onUploadClick={() => setIsModalOpen(true)}
+        mobileActionBarSlot={myActionBar(true)} />
 
       <div className="flex-1 flex flex-col p-4 md:p-12 min-w-0">
         
@@ -40,6 +54,10 @@ export default function ProfessorDashboard() {
             <p className="text-neutras-400 text-body-small mt-2">
               Acompanhe seus alunos e gerencie o material da IA.
             </p>
+          </div>
+
+          <div className="hidden md:block w-auto">
+            {myActionBar(false)}
           </div>
 
           <div className="w-full md:w-auto">
