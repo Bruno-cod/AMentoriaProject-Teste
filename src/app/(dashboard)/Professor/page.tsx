@@ -32,7 +32,8 @@ export default function ProfessorDashboard() {
     <div className="flex w-full h-screen bg-neutras-900 font-poppins overflow-hidden">
       <Sidebar onUploadClick={() => setIsModalOpen(true)} />
 
-      <div className="flex-1 flex flex-col p-4 md:p-12">
+      <div className="flex-1 flex flex-col p-4 md:p-12 min-w-0">
+        
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8">
           <div>
             <h1 className="text-h2 text-neutras-50 font-bold">Painel do Monitor</h1>
@@ -63,20 +64,20 @@ export default function ProfessorDashboard() {
         >
           <DashboardTabs />
 
-          <div className="flex-1 min-h-0 overflow-y-auto pr-4 pb-4 scrollbar-thin scrollbar-thumb-neutras-700 scrollbar-track-transparent">
+          <div className="flex-1 min-h-0 overflow-auto pr-4 pb-4 scrollbar-thin scrollbar-thumb-neutras-700 scrollbar-track-transparent">
             
-            <TabsContent value="alunos" className="m-0 focus-visible:ring-0">
+            <TabsContent value="alunos" className="m-0 focus-visible:ring-0 min-w-min">
               <StudentsManager 
                 searchTerm={searchTerm} 
                 mostrarNaoLidos={mostrarNaoLidos} 
               />
             </TabsContent>
 
-            <TabsContent value="arquivos" className="m-0 focus-visible:ring-0">
+            <TabsContent value="arquivos" className="m-0 focus-visible:ring-0 min-w-min">
               <FileManager refreshKey={refreshKey} searchTerm={searchTerm} />
             </TabsContent>
 
-            <TabsContent value="alertas" className="m-0 focus-visible:ring-0">
+            <TabsContent value="alertas" className="m-0 focus-visible:ring-0 min-w-min">
               <AlertManager searchTerm={searchTerm} />
             </TabsContent>
             

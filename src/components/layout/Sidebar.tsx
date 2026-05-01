@@ -112,9 +112,18 @@ export const Sidebar = ({  onClose, onUploadClick, onManageFilesClick }: Sidebar
               Menu Principal
             </span>
           )}
-          <Button variant="ghost" size="icon" onClick={toggleSidebar} className="text-neutras-50 hover:bg-neutras-800 shrink-0">
-            <List size={24} weight="bold" className="hidden md:block" />
-            <X size={24} weight="bold" className="block md:hidden" />
+          
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={toggleSidebar} 
+            className="text-neutras-50 hover:bg-neutras-800 shrink-0"
+          >
+            {isExpanded ? (
+              <X size={24} weight="bold" />
+            ) : (
+              <List size={24} weight="bold" />
+            )}
           </Button>
         </div>
 

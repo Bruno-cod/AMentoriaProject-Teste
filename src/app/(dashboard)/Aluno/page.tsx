@@ -50,7 +50,6 @@ export default function ChatPage() {
     }
   }, [messages, isAiThinking]);
 
-
   useEffect(() => {
     if ((!initialMessage && !initialImage) || initialized.current) return;
     initialized.current = true;
@@ -106,13 +105,13 @@ export default function ChatPage() {
     <div className="flex h-screen bg-neutras-900 overflow-hidden font-poppins text-neutras-50">
       <Sidebar />
 
-      <main className="flex-1 flex flex-col relative border-l border-neutras-800">
+      <main className="flex-1 flex flex-col relative border-l border-neutras-800 min-w-0">
 
         <Navbar />
 
         <div
           ref={scrollRef}
-          className="flex-1 overflow-y-auto p-6 md:p-10 space-y-8 scroll-smooth bg-[radial-gradient(circle_at_top_right,var(--primary-900),transparent_40%)]"
+          className="flex-1 overflow-auto p-6 md:p-10 space-y-8 scroll-smooth bg-[radial-gradient(circle_at_top_right,var(--primary-900),transparent_40%)]"
         >
           <div className="max-w-[800px] mx-auto w-full">
             {messages.map((msg) => (
@@ -133,7 +132,6 @@ export default function ChatPage() {
 
         <div className="w-full px-6 md:px-10 pb-4 pt-2 bg-neutras-900 border-t border-neutras-800/50">
           <div className="max-w-[800px] mx-auto relative group">
-
 
             {activeMenu === "options" && (
               <div className="absolute bottom-full left-0 mb-4 animate-in slide-in-from-bottom-2 duration-200">

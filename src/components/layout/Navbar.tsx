@@ -4,7 +4,6 @@ import { Button } from "../ui/Button";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useEffect, useState } from "react";
-import { List } from "@phosphor-icons/react";
 
 interface NavbarProps {
   onOpenMenu?: () => void; 
@@ -40,15 +39,6 @@ export function Navbar({onOpenMenu}:NavbarProps) {
         }`}
     >
       <div className="flex items-center gap-4">
-        {isLogged && (
-          <Button
-            variant='icon' 
-            onClick={onOpenMenu} 
-            className="md:hidden text-neutras-50 hover:text-primaria transition-colors"
-          >
-            <List size={28} weight="bold" />
-          </Button>
-        )}
         
         <div className="flex flex-col">
           <h2 
