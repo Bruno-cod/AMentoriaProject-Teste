@@ -13,6 +13,7 @@ export const useChatStore = create<ChatStore>((set) => ({
   initialImage: null,
   setInitialMessage: (msg) => set({ initialMessage: msg }),
   setInitialImage: (base64) => set({ initialImage: base64 }),
+  // Implementação que limpa texto e imagem
   clearInitialData: () => set({ initialMessage: '', initialImage: null }),
 }));
 

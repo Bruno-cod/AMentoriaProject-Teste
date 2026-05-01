@@ -1,3 +1,4 @@
+// src/hooks/useChat.ts (ou onde estiver o seu useChat)
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
@@ -227,9 +228,6 @@ export function useChat() {
   }, [tipCount, classification]);
 
   const sendMessage = useCallback(async (text: string, imageInput?: string | File | null) => {
-    console.log("O que chegou no imageInput?", imageInput);
-    console.log("É um arquivo válido?", imageInput instanceof File);
-    
     let imageUrl: string | null | undefined = null;
     
     if (imageInput instanceof File) {

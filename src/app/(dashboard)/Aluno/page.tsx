@@ -17,12 +17,20 @@ import { ChatFinishedControls } from "@/components/features/chat/ChatFinishedCon
 
 export default function ChatPage() {
   const router = useRouter();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const {
-    messages, isAiThinking, sendMessage, handleTipFlow, tipCount,
-    handleAnswer, handleQuestionFlow, handleExplanationFlow,
-    isChatFinished, handleRateMessage, handleFeedbackTextSubmit, clearChat,
+    messages,
+    isAiThinking,
+    sendMessage,
+    handleTipFlow,
+    tipCount,
+    handleAnswer,
+    handleQuestionFlow,
+    handleExplanationFlow,
+    isChatFinished,
+    handleRateMessage,
+    handleFeedbackTextSubmit,
+    clearChat, 
   } = useChat();
 
   const [inputValue, setInputValue] = useState("");
@@ -35,9 +43,13 @@ export default function ChatPage() {
 
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+      scrollRef.current.scrollTo({
+        top: scrollRef.current.scrollHeight,
+        behavior: "smooth",
+      });
     }
   }, [messages, isAiThinking]);
+
 
   useEffect(() => {
     if ((!initialMessage && !initialImage) || initialized.current) return;
@@ -46,27 +58,33 @@ export default function ChatPage() {
     clearInitialData();
   }, [initialMessage, initialImage, sendMessage, clearInitialData]);
 
-  useEffect(() => {
-    document.body.style.overflow = activeMenu !== "none" ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [activeMenu]);
-
   const handleAction = (value: string) => {
     const actionType = value.split("|")[0];
     switch (actionType) {
       case "flow_tips":
-      case "action_next_tip": handleTipFlow(); break;
-      case "flow_questions": handleQuestionFlow(); break;
+      case "action_next_tip":
+        handleTipFlow();
+        break;
+      case "flow_questions":
+        handleQuestionFlow();
+        break;
       case "answer_correct":
-      case "answer_wrong": handleAnswer(value); break;
-      case "flow_explanation": handleExplanationFlow(); break;
-      default: sendMessage(value); break;
+      case "answer_wrong":
+        handleAnswer(value);
+        break;
+      case "flow_explanation":
+        handleExplanationFlow();
+        break;
+      default:
+        sendMessage(value);
+        break;
     }
   };
 
   const handleFileSelected = useCallback((file: File) => {
     if (previewUrl) URL.revokeObjectURL(previewUrl);
-    setPreviewUrl(URL.createObjectURL(file));
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
     setActiveMenu("preview");
   }, [previewUrl]);
 
@@ -85,15 +103,16 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex h-[100dvh] bg-neutras-900 overflow-hidden font-poppins text-neutras-50">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+    <div className="flex h-screen bg-neutras-900 overflow-hidden font-poppins text-neutras-50">
+      <Sidebar />
 
-      <main className="flex-1 flex flex-col relative border-l border-neutras-800 min-w-0">
-        <Navbar onOpenMenu={() => setSidebarOpen(true)} />
+      <main className="flex-1 flex flex-col relative border-l border-neutras-800">
+
+        <Navbar />
 
         <div
           ref={scrollRef}
-          className="flex-1 overflow-y-auto p-4 md:p-10 space-y-8 scroll-smooth bg-[radial-gradient(circle_at_top_right,var(--primary-900),transparent_40%)]"
+          className="flex-1 overflow-y-auto p-6 md:p-10 space-y-8 scroll-smooth bg-[radial-gradient(circle_at_top_right,var(--primary-900),transparent_40%)]"
         >
           <div className="max-w-[800px] mx-auto w-full">
             {messages.map((msg) => (
@@ -107,55 +126,47 @@ export default function ChatPage() {
                 onActionClick={handleAction}
               />
             ))}
+
             {isAiThinking && <ThinkingIndicator />}
           </div>
         </div>
 
-        <div className="w-full px-4 md:px-10 pb-4 pt-2 bg-neutras-900 border-t border-neutras-800/50">
-          <div className="max-w-[800px] mx-auto relative">
+        <div className="w-full px-6 md:px-10 pb-4 pt-2 bg-neutras-900 border-t border-neutras-800/50">
+          <div className="max-w-[800px] mx-auto relative group">
 
-            {/* Mobile: bottom sheets */}
-            <div className="md:hidden">
-              {activeMenu === "options" && (
+
+            {activeMenu === "options" && (
+              <div className="absolute bottom-full left-0 mb-4 animate-in slide-in-from-bottom-2 duration-200">
                 <MenuContent
-                  onSelect={(type) => type === "imagem" ? setActiveMenu("upload") : setActiveMenu("none")}
+                  onSelect={(type) =>
+                    type === "imagem" ? setActiveMenu("upload") : setActiveMenu("none")
+                  }
+                />
+              </div>
+            )}
+
+            {activeMenu === "upload" && (
+              <div className="absolute bottom-full left-0 mb-4 w-full">
+                <FileUpload
+                  onFileSelect={handleFileSelected}
                   onClose={() => setActiveMenu("none")}
                 />
-              )}
-              {activeMenu === "upload" && (
-                <FileUpload onFileSelect={handleFileSelected} onClose={() => setActiveMenu("none")} />
-              )}
-              {activeMenu === "preview" && previewUrl && (
+              </div>
+            )}
+
+            {activeMenu === "preview" && previewUrl && (
+              <div className="absolute bottom-full left-0 mb-4 w-full">
                 <ImagePreview
                   image={previewUrl}
-                  onCancel={() => { URL.revokeObjectURL(previewUrl); setPreviewUrl(null); setActiveMenu("upload"); }}
+                  onCancel={() => {
+                    if (previewUrl) URL.revokeObjectURL(previewUrl); 
+                    setPreviewUrl(null);
+                    setActiveMenu("upload");
+                  }}
                   onConfirm={handleSend}
                 />
-              )}
-            </div>
-
-            {/* Desktop: popovers flutuantes */}
-            <div className="hidden md:block">
-              {activeMenu === "options" && (
-                <div className="absolute bottom-full left-0 mb-4 animate-in slide-in-from-bottom-2 duration-200">
-                  <MenuContent onSelect={(type) => type === "imagem" ? setActiveMenu("upload") : setActiveMenu("none")} />
-                </div>
-              )}
-              {activeMenu === "upload" && (
-                <div className="absolute bottom-full left-0 mb-4 w-full">
-                  <FileUpload onFileSelect={handleFileSelected} onClose={() => setActiveMenu("none")} />
-                </div>
-              )}
-              {activeMenu === "preview" && previewUrl && (
-                <div className="absolute bottom-full left-0 mb-4 w-full">
-                  <ImagePreview
-                    image={previewUrl}
-                    onCancel={() => { URL.revokeObjectURL(previewUrl); setPreviewUrl(null); setActiveMenu("upload"); }}
-                    onConfirm={handleSend}
-                  />
-                </div>
-              )}
-            </div>
+              </div>
+            )}
 
             {!isChatFinished ? (
               <ChatInput
@@ -164,7 +175,9 @@ export default function ChatPage() {
                 onSend={handleSend}
                 showButton={true}
                 placeholder="Tire sua dúvida..."
-                onMenuClick={() => setActiveMenu(activeMenu === "none" ? "options" : "none")}
+                onMenuClick={() =>
+                  setActiveMenu(activeMenu === "none" ? "options" : "none")
+                }
               />
             ) : (
               <ChatFinishedControls onNewChat={handleNovaConversa} />
@@ -175,6 +188,7 @@ export default function ChatPage() {
         <div className="pb-2 bg-neutras-900 shrink-0">
           <Footer />
         </div>
+
       </main>
     </div>
   );
