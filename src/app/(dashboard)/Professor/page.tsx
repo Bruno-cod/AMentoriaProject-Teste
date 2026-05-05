@@ -59,20 +59,6 @@ export default function ProfessorDashboard() {
           <div className="hidden md:block w-auto">
             {myActionBar(false)}
           </div>
-
-          <div className="w-full md:w-auto">
-            <ActionBar
-              searchTerm={searchTerm}
-              onSearchChange={setSearchTerm}
-              
-              hasFilter={activeTab === "alunos"}
-              filterValue={activeTab === "alunos" ? mostrarNaoLidos : undefined}
-              onFilterChange={activeTab === "alunos" ? setMostrarNaoLidos : undefined}
-              filterLabel={activeTab === "alunos" ? "Apenas não lidos" : undefined}
-              
-              onUploadClick={activeTab === "arquivos" ? () => setIsModalOpen(true) : undefined}
-            />
-          </div>
         </div>
 
         <Tabs
