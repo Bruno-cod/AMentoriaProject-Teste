@@ -7,7 +7,7 @@ import { formatShortDate } from "@/lib/formatters";
 import { Eye, CaretDown, CaretUp } from "@phosphor-icons/react"; 
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
-import { useOrdenacao } from "@/lib/ordenecao";
+import { useOrdenacao } from "@/hooks/ordenacao/useOrdenacao";
 
 export interface StudentsTableProps {
   students: Student[];

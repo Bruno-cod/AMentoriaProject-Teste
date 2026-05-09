@@ -7,7 +7,7 @@ import { fetchKnowledgeFiles, deleteKnowledgeFile, renameKnowledgeFile } from "@
 import { formatLongDate } from "@/lib/formatters";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
-import { useOrdenacao } from "@/lib/ordenecao";
+import { useOrdenacao } from "@/hooks/ordenacao/useOrdenacao";
 
 export function FileManager({ refreshKey = 0, searchTerm = "" }: { refreshKey?: number, searchTerm?: string; }) {
   const [files, setFiles] = useState<KnowledgeFile[]>([]);

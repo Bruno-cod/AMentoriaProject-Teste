@@ -1,5 +1,4 @@
 import { parseDateBrToTime } from "./formatters";
-import { useState, useMemo } from "react";
 
 export type tipoOrdenacao = 'recente' | 'alfabetico' | 'naoVisualizado';
 
@@ -33,40 +32,6 @@ export function ordenacao<T>(
                 return 0;
         }
 
-        
         return direcao === 'asc' ? resultado : resultado * -1;
     });
-};
-
-export function useOrdenacao<T>(
-    dadosIniciais: T[],
-    ordenacaoPadrao: tipoOrdenacao,
-    dataChave: keyof T,
-    labelChave: keyof T,
-    vistoChave: keyof T
-) {
-
-    const [ordenarPor, setOrdenarPor] = useState<tipoOrdenacao>(ordenacaoPadrao);
-    const [direcao, setDirecao] = useState<'asc' | 'desc'>('asc');
-
-    const handleSort = (novaOrdenacao: tipoOrdenacao) => {
-        if (ordenarPor === novaOrdenacao) {
-            setDirecao((prev) => (prev === 'asc' ? 'desc' : 'asc'));
-        } else {
-            setOrdenarPor(novaOrdenacao);
-            setDirecao('asc');
-        }
-    };
-
-    const dadosOrdenados = useMemo(() => {
-        return ordenacao(dadosIniciais, ordenarPor, dataChave, labelChave, vistoChave, direcao);
-    }, [dadosIniciais, ordenarPor, direcao, dataChave, labelChave, vistoChave]);
-
-    return {
-        dadosOrdenados,
-        ordenarPor,
-        direcao,
-        handleSort
-    };
 }
-    

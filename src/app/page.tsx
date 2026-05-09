@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useChatStore, fileToBase64 } from "@/store/useChatStore";
+import { useChatStore } from "@/store/useChatStore";
+import { fileToBase64 } from "@/lib/fileToBase64";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useState, useEffect } from "react";
 import { Navbar } from "@/components/layout/Navbar";
@@ -20,7 +21,8 @@ export default function Page() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
 
-  const { isLogged, user } = useAuthStore();
+  const user = useAuthStore((state) => state.user);
+  const isLogged = !!user;
   const [isMounted, setIsMounted] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
@@ -100,10 +102,10 @@ export default function Page() {
   };
 
   return (
-    <div className="min-h-screen w-full relative overflow-x-hidden font-poppins bg-secundaria text-neutras-900 antialiased before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_50%_50%,var(--primary-500)_0%,transparent_70%)] before:opacity-100">
+    <div className="min-h-screen w-full relative overflow-x-hidden font-poppins bg-secundaria text-neutras-900 antialiased before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_50%_50%,var(--primary-500)_0%,transparent_70%)] before:opacity-150 before:animate-breath">
       <Navbar />
 
-      <main className="relative flex flex-col items-center justify-center min-h-[100dvh] max-w-[584px] mx-auto px-4 pt-20 pb-28 sm:pt-[140px] sm:pb-24 z-10">
+      <main className="relative flex flex-col items-center justify-center min-h-[100dvh] max-w-[584px] mx-auto px-4 pt-20 pb-28 sm:pt-[140px] sm:pb-24 z-10" >
         <div className="mb-6 sm:mb-8 text-center sm:text-left w-full">
           <h1 className="text-3xl sm:text-h1 text-neutras-900 mb-2 leading-tight">
             Bora passar no ENEM, <br className="hidden sm:block" />
@@ -114,7 +116,6 @@ export default function Page() {
         </div>
 
         <div className="relative w-full">
-          {/* Desktop: popovers flutuantes acima do input */}
           <div className="hidden sm:block">
             {activeMenu === "options" && (
               <div className="absolute bottom-full left-0 mb-4 z-[999]">
@@ -133,7 +134,6 @@ export default function Page() {
             )}
           </div>
 
-          {/* Mobile: bottom sheets com position fixed (dentro dos componentes) */}
           <div className="sm:hidden">
             {activeMenu === "options" && (
               <MenuContent onSelect={handleMenuAction} onClose={() => setActiveMenu("none")} />

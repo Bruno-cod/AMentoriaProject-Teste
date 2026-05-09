@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { useChat } from "@/hooks/useChat";
+import { useChat } from "@/hooks/Chat/useChat";
 import { MessageBubble } from "@/components/features/chat/MessageBubble";
 import { ChatInput } from "@/components/ui/ChatInput";
 import { Sidebar } from "@/components/layout/Sidebar";

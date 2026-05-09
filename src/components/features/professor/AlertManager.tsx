@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { fetchAllHistory } from "@/lib/services/historico";
 import { AlertReport } from "./AlertReport";
 import { AlertItem } from "@/types/alertas";
-import { useOrdenacao } from "@/lib/ordenecao";
+import { useOrdenacao } from "@/hooks/ordenacao/useOrdenacao";
 
 interface AlertManagerProps {
   searchTerm: string;

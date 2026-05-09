@@ -77,7 +77,6 @@
 }
 
 @theme inline {
-
   --color-primaria: var(--primary-600);
   --color-secundaria: var(--secondary-400);
   
@@ -96,7 +95,6 @@
   --color-erro: var(--error-600);
   --color-aviso: var(--warning-600);
 
-  
   --font-poppins: "Poppins", sans-serif;
 
   --text-h1: 48px;
@@ -147,6 +145,13 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --animate-breath: breath 8s ease-in-out infinite;
+}
+
+@keyframes breath {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 html {

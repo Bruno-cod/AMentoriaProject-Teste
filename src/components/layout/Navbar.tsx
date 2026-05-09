@@ -11,8 +11,10 @@ interface NavbarProps {
 
 export function Navbar({onOpenMenu}:NavbarProps) {
   const router = useRouter();
+
   
-  const { isLogged} = useAuthStore();
+  const user = useAuthStore((state) => state.user);
+  const isLogged = !!user;
   const [isMounted, setIsMounted] = useState(false);
   
   useEffect(() => {

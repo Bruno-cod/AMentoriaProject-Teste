@@ -1,18 +1,9 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-export type UserRole = "aluno" | "professor";
-
-interface UserData {
-  name: string;
-  email: string;
-  role: UserRole;
-  subject?: string;
-}
+import { UserData } from "@/types/auth";
 
 interface AuthState {
   user: UserData | null;
-  isLogged: boolean;
   registeredUsers: UserData[];
   register: (userData: UserData) => boolean;
   login: (email: string) => UserData | null; 
@@ -23,8 +14,7 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
       user: null,
-      isLogged: false,
-      registeredUsers: [],
+      registeredUsers: [], 
 
       register: (userData) => {
         const currentUsers = get().registeredUsers;
@@ -36,8 +26,7 @@ export const useAuthStore = create<AuthState>()(
 
         set({
           registeredUsers: [...currentUsers, userData],
-          user: userData,
-          isLogged: true,
+          user: userData, 
         });
         return true;
       },
@@ -48,19 +37,18 @@ export const useAuthStore = create<AuthState>()(
         );
 
         if (foundUser) {
-          set({ user: foundUser, isLogged: true });
+          set({ user: foundUser });
           return foundUser; 
         }
         return null;
       },
 
       logout: () => {
-        set({ user: null, isLogged: false });
+        set({ user: null }); 
       },
     }),
     {
       name: "amentoria-auth",
-      // partialize: (state) => ({ user: state.user, isLogged: state.isLogged }),
     }
   )
 );
